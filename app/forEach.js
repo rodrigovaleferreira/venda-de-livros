@@ -1,12 +1,16 @@
 const elementosParaInserirLivros = document.getElementById('livros')
+const elementoComValorTotalLivrosDisponiveis = document.getElementById('valor_total_livros_disponiveis')
+
 
 function exibirLivrosNaTela (listaDeLivros){
+    elementoComValorTotalLivrosDisponiveis.innerHTML = ''
   /*colocar o conteudo como string vazia para conseguir aplicar o filter*/
     elementosParaInserirLivros.innerHTML=''
     listaDeLivros.forEach(livro => {
+        let disponibilidade = verificarDisponibilidadeDoLivro(livro)
         elementosParaInserirLivros.innerHTML += `
         <div class="livro">
-        <img class="livro__imagens" src="${livro.imagem}" alt="${livro.alt}" />
+        <img class="${disponibilidade}" src="${livro.imagem}" alt="${livro.alt}" />
         <h2 class="livro__titulo">
           ${livro.titulo}
         </h2>
@@ -18,4 +22,14 @@ function exibirLivrosNaTela (listaDeLivros){
       </div>
         `
     })
+}
+
+
+function verificarDisponibilidadeDoLivro(livro){
+  if(livro.quantidade > 0){
+    return 'livro__imagens'
+  }else{
+    return 'livro__imagens indisponivel'
+  }
+
 }
